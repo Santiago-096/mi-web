@@ -1,0 +1,300 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Demo</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    color:#202124;
+}
+
+.container{
+    width:100%;
+    max-width:420px;
+    padding:30px;
+}
+
+.logo{
+    width:75px;
+    margin-bottom:25px;
+}
+
+h1{
+    font-size:42px;
+    font-weight:400;
+    margin-bottom:25px;
+}
+
+.subtitle{
+    font-size:18px;
+    margin-bottom:35px;
+    color:#3c4043;
+}
+
+.input-box{
+    width:100%;
+    height:58px;
+    border:1px solid #c4c7c5;
+    border-radius:4px;
+    padding:0 15px;
+    font-size:18px;
+    margin-bottom:20px;
+    outline:none;
+}
+
+.input-box:focus{
+    border:2px solid #1a73e8;
+}
+
+.link{
+    color:#1a73e8;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+}
+
+.bottom{
+    margin-top:40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.btn{
+    background:#1a73e8;
+    color:white;
+    border:none;
+    padding:13px 32px;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.footer{
+    margin-top:90px;
+    color:#5f6368;
+    font-size:14px;
+}
+
+.footer-links{
+    display:flex;
+    gap:25px;
+    margin-top:15px;
+}
+
+#pantalla2,
+#pantalla3{
+    display:none;
+}
+
+.checkbox{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:15px;
+    font-size:16px;
+}
+
+.user-box{
+    display:inline-flex;
+    align-items:center;
+    border:1px solid #c4c7c5;
+    border-radius:25px;
+    padding:10px 18px;
+    margin-bottom:30px;
+    font-size:18px;
+    color:#3c4043;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- PANTALLA 1 -->
+    <div id="pantalla1">
+
+        <img class="logo"
+        src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg">
+
+        <h1>Accede a tu cuenta</h1>
+
+        <div class="subtitle">
+            Usa tu Cuenta de Google
+        </div>
+
+        <input 
+            type="text"
+            id="usuario"
+            class="input-box"
+            placeholder="Usuario"
+        >
+
+        <a href="#" class="link">
+            ¿Olvidaste tu usuario?
+        </a>
+
+        <div class="bottom">
+            <a href="#" class="link">Crear cuenta</a>
+
+            <button class="btn" onclick="continuar()">
+                Siguiente
+            </button>
+        </div>
+
+    </div>
+
+    <!-- PANTALLA 2 -->
+    <div id="pantalla2">
+
+        <img class="logo"
+        src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg">
+
+        <h1>Te damos la bienvenida</h1>
+
+        <div class="user-box">
+            <span id="usuarioMostrado"></span>
+        </div>
+
+        <div class="subtitle">
+            Para continuar, primero debes verificar tu identidad
+        </div>
+
+        <input 
+            type="password"
+            id="password"
+            class="input-box"
+            placeholder="Ingresa tu contraseña"
+        >
+
+        <div class="checkbox">
+            <input type="checkbox" onclick="mostrarPassword()">
+            <span>Mostrar contraseña</span>
+        </div>
+
+        <div class="bottom">
+            <a href="#" class="link">
+                ¿Olvidaste la contraseña?
+            </a>
+
+            <button class="btn" onclick="finalizar()">
+                Siguiente
+            </button>
+        </div>
+
+    </div>
+
+    <!-- PANTALLA 3 -->
+    <div id="pantalla3">
+
+        <img class="logo"
+        src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg">
+
+        <h1>Verificación completada</h1>
+
+        <div class="subtitle">
+            Revisa tus datos ingresados
+        </div>
+
+        <div class="user-box">
+            <b>USUARIO:</b>&nbsp;
+            <span id="finalUsuario"></span>
+        </div>
+
+        <br><br>
+
+        <div class="user-box">
+            <b>CONTRASEÑA:</b>&nbsp;
+            <span id="finalPassword"></span>
+        </div>
+
+        <div class="checkbox">
+            <input type="checkbox" onclick="verFinalPassword()">
+            <span>Mostrar contraseña</span>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Español (Latinoamérica)
+
+        <div class="footer-links">
+            <span>Ayuda</span>
+            <span>Privacidad</span>
+            <span>Condiciones</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function continuar(){
+
+    let usuario = document.getElementById("usuario").value;
+
+    if(usuario.trim() === ""){
+        alert("Ingresa un usuario");
+        return;
+    }
+
+    document.getElementById("usuarioMostrado").innerText = usuario;
+
+    document.getElementById("pantalla1").style.display = "none";
+    document.getElementById("pantalla2").style.display = "block";
+}
+
+function mostrarPassword(){
+
+    let input = document.getElementById("password");
+
+    if(input.type === "password"){
+        input.type = "text";
+    }else{
+        input.type = "password";
+    }
+}
+
+function finalizar(){
+
+    let usuario = document.getElementById("usuario").value;
+    let password = document.getElementById("password").value;
+
+    document.getElementById("finalUsuario").innerText = usuario;
+
+    document.getElementById("finalPassword").innerText =
+        "•".repeat(password.length);
+
+    document.getElementById("pantalla2").style.display = "none";
+    document.getElementById("pantalla3").style.display = "block";
+}
+
+function verFinalPassword(){
+
+    let password = document.getElementById("password").value;
+    let finalPassword = document.getElementById("finalPassword");
+
+    if(finalPassword.innerText.includes("•")){
+        finalPassword.innerText = password;
+    }else{
+        finalPassword.innerText = "•".repeat(password.length);
+    }
+}
+</script>
+
+</body>
+</html>
